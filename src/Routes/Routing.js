@@ -4,7 +4,7 @@ import Team from "../Pages/Team";
 import { Reports, ReportsOne, ReportsThree, ReportsTwo } from "../Pages/Reports";
 import Layout from "../Components/Layout";
 import Products from "../Pages/Products";
-import { Overview, Revenue } from "../Pages/Overview";
+import { Overview, Revenue, Users } from "../Pages/Overview";
 
 export const router = createBrowserRouter([
   {
@@ -16,7 +16,11 @@ export const router = createBrowserRouter([
         element: <Overview />,
       },
       {
-        path: "/revenue",
+        path: "/overview/users",
+        element: <Users />,
+      },
+      {
+        path: "/overview/revenue",
         element: <Revenue />,
       },
       {

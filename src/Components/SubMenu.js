@@ -2,14 +2,23 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const SubMenu = ({ item }) => {
+const SubMenu = ({ item, activeMenu, handleMenuClick }) => {
   const [subnav, setSubnav] = useState(false);
 
   const showSubnav = () => setSubnav(!subnav);
 
   return (
     <>
-      <SidebarLink to={item.path} onClick={item.subNav && showSubnav}>
+      <SidebarLink
+        to={item.path}
+        onClick={() => {
+          if (item.subNav) {
+            showSubnav();
+          }
+          handleMenuClick(item.path);
+        }}
+        active={activeMenu === item.path}
+      >
         <div>
           {item.icon}
           <SidebarLabel>{item.title}</SidebarLabel>
@@ -17,11 +26,11 @@ const SubMenu = ({ item }) => {
         <div>{item.subNav && subnav ? item.iconOpened : item.subNav ? item.iconClosed : null}</div>
       </SidebarLink>
       {subnav &&
-        item.subNav.map((item, index) => {
+        item.subNav.map((subItem, index) => {
           return (
-            <DropdownLink to={item.path} key={index}>
-              {item.icon}
-              <SidebarLabel>{item.title}</SidebarLabel>
+            <DropdownLink to={subItem.path} key={index} active={activeMenu === subItem.path}>
+              {subItem.icon}
+              <SidebarLabel>{subItem.title}</SidebarLabel>
             </DropdownLink>
           );
         })}

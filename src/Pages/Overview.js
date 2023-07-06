@@ -9,6 +9,14 @@ export const Overview = () => {
   );
 };
 
+export const Users = () => {
+  return (
+    <Wrapper>
+      <h1>Users</h1>
+    </Wrapper>
+  );
+};
+
 export const Revenue = () => {
   return (
     <Wrapper>
