@@ -27,7 +27,7 @@ const Layout = () => {
   };
 
   useEffect(() => {
-    setActiveMenu(null); // 페이지 이동 시 하위 메뉴는 닫히도록 초기화
+    setActiveMenu(null);
   }, [location]);
 
   return (

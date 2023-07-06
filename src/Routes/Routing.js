@@ -5,6 +5,8 @@ import { Reports, ReportsOne, ReportsThree, ReportsTwo } from "../Pages/Reports"
 import Layout from "../Components/Layout";
 import Products from "../Pages/Products";
 import { Overview, Revenue, Users } from "../Pages/Overview";
+import { Messages, MessagesOne, MessagesTwo } from "../Pages/Message";
+import Support from "../Pages/Support";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +48,22 @@ export const router = createBrowserRouter([
       {
         path: "/team",
         element: <Team />,
+      },
+      {
+        path: "/messages",
+        element: <Messages />,
+      },
+      {
+        path: "/messages/message1",
+        element: <MessagesOne />,
+      },
+      {
+        path: "/messages/message2",
+        element: <MessagesTwo />,
+      },
+      {
+        path: "/support",
+        element: <Support />,
       },
     ],
   },
