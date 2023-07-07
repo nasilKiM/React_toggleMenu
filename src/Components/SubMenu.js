@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const SubMenu = ({ item, currentPath, activeMenu, handleMenuClick }) => {
-  const [subnav, setSubnav] = useState(currentPath);
+  const [subnav, setSubnav] = useState(currentPath || activeMenu === item.path);
 
   const showSubnav = () => setSubnav(!subnav);
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
@@ -11,7 +11,11 @@ const Sidebar = () => {
   const sidebar = true;
   const location = useLocation();
   const Current = location.pathname.split("/")[1];
-  const [activeMenu, setActiveMenu] = useState(null);
+  const [activeMenu, setActiveMenu] = useState(() => localStorage.getItem("activeMenu") || null);
+
+  useEffect(() => {
+    localStorage.setItem("activeMenu", activeMenu);
+  }, [activeMenu]);
 
   const handleMenuClick = (menuId) => {
     setActiveMenu((prevMenu) => (prevMenu === menuId ? null : menuId));
@@ -30,12 +34,12 @@ const Sidebar = () => {
             <NavIcon to="#">
               <AiIcons.AiOutlineClose />
             </NavIcon>
-            {SidebarData.map((title, path) => {
+            {SidebarData.map((title, path, subNav) => {
               return (
                 <SubMenu
                   item={title}
                   key={path}
-                  currentPath={Current === path}
+                  currentPath={Current === subNav.path}
                   activeMenu={activeMenu}
                   handleMenuClick={handleMenuClick}
                 />
