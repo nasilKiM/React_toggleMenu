@@ -2,37 +2,27 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const SubMenu = ({ item, currentPath, activeMenu, handleMenuClick }) => {
-  const [subnav, setSubnav] = useState(currentPath || activeMenu === item.path);
-
-  const showSubnav = () => setSubnav(!subnav);
-
-  const handleClick = () => {
-    if (item.subNav) {
-      showSubnav();
-    }
-    handleMenuClick(item.path);
-  };
+const SubMenu = ({ item, activeMenu, setActiveMenu }) => {
+  const [showSubNav, setShowSubNav] = useState(activeMenu.includes(item.path));
+  const showSubnav = () => setShowSubNav(!showSubNav);
 
   return (
     <>
-      <SidebarLink
-        to={item.path}
-        onClick={handleClick}
-        active={activeMenu === item.path ? "true" : undefined}
-      >
+      <SidebarLink to={item.path} onClick={showSubnav}>
         <div>
           {item.icon}
           <SidebarLabel>{item.title}</SidebarLabel>
         </div>
-        <div>{item.subNav && <>{subnav ? item.iconOpened : item.iconClosed}</>}</div>
+        <div>{item.subNav && <>{showSubNav ? item.iconOpened : item.iconClosed}</>}</div>
       </SidebarLink>
-      {subnav &&
+      {item.subNav &&
+        showSubNav &&
         item.subNav.map((subItem, index) => (
           <DropdownLink
             to={subItem.path}
             key={index}
-            active={activeMenu === item.path ? "true" : undefined}
+            active={activeMenu === subItem.path ? "true" : "false"}
+            onClick={() => setActiveMenu(subItem.path)}
           >
             {subItem.icon}
             <SidebarLabel>{subItem.title}</SidebarLabel>
@@ -51,7 +41,7 @@ const SidebarLink = styled(Link)`
   align-items: center;
   padding: 20px;
   list-style: none;
-  height: 60px;
+  height: 50px;
   text-decoration: none;
   font-size: 18px;
 
@@ -67,8 +57,8 @@ const SidebarLabel = styled.span`
 `;
 
 const DropdownLink = styled(Link)`
-  background: gray;
-  height: 60px;
+  background: ${({ active }) => (active === "true" ? "green" : "gray")};
+  height: 50px;
   padding-left: 3rem;
   display: flex;
   align-items: center;
